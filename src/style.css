@@ -26,6 +26,20 @@ body {
     height: auto;
   }
 
+  .nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .nav-item {
+    margin-top: 15px !important;
+    margin-right: calc(1.8vw);
+  }
+
+  .nav-item:first-child {
+    margin-left: calc(2.5vw);
+  }
+
 .nav-link {
   font-size: 18px;
   color: #000000;
@@ -36,6 +50,10 @@ body {
 .nav-link:hover {
   border-bottom: 3px solid black;
   transform: translateX(0);
+}
+
+.iconBolsaPc{
+  margin-right: calc(-2vw) !important;
 }
 
 .nav-link::before,
@@ -49,7 +67,24 @@ body {
   transition: width 0.2s ease-in-out;
 }
 
+.form-field {
+  position: relative;
+  display: inline-block;
+}
 
+.iconLupita {
+  position: absolute;
+  right: 0;
+  margin-top: calc(-1vw - 1.5vh);
+}
+
+.search-icon {
+  margin-right: 10px;
+}
+
+.shopping-bag-icon {
+  margin-left: 10px;
+}
 
 .nav-item {
   color: "#000000" !important;
@@ -80,4 +115,20 @@ body {
   .divFirst{
     justify-content: center;
   }
-};
+}
+
+@media (max-width: 991px) {
+  .nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .nav-item {
+    margin-top: 10px !important;
+    margin-right: 0px !important;
+  }
+
+  .nav-item:first-child {
+    margin-left: 0px !important;
+  }
+}

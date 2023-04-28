@@ -12,17 +12,19 @@ export const Navbar = () => {
               <img src={logo} className="img-fluid logo-page" alt="Logo" />
             </div>
             <div className="col-md-4 d-flex justify-content-end">
+              
               <form>
-                <div className="form-group">
-                  <label></label>
+                <div className="form-group form-field mt-3">
                   <input
                     type="text"
                     placeholder="Buscar en Productos"
                     className="form-control inputSearch"
                     id="inputDerecho"
                   />
+                  <i className="far fa-search search-icon fa-lg iconLupita"></i>
                 </div>
               </form>
+
             </div>
           </div>
         </div>
@@ -40,9 +42,8 @@ export const Navbar = () => {
           <div className="d-flex align-items-center order-last">
             {window.innerWidth < 992 ? (
               <div className="text-center mt-4">
-                <a href="#" className="btn btn-primary">
-                  Botón
-                </a>
+                <i className="fas fa-search search-icon"></i>
+                <i className="far fa-shopping-bag fa-lg shopping-bag-icon"></i>
               </div>
             ) : null}
           </div>
@@ -74,9 +75,9 @@ export const Navbar = () => {
               ></button>
             </div>
             <div className="offcanvas-body">
-              <div className="navbar-nav ml-auto">
+              <div className="navbar-nav ml-auto ms-5">
                 <NavLink
-                  className="nav-item nav-link mr-3"
+                  className="nav-item nav-link"
                   to="/inicio"
                   style={{ color: "#000000" }}
                 >
@@ -84,7 +85,7 @@ export const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  className="nav-item nav-link mr-3"
+                  className="nav-item nav-link"
                   to="/Nosotros"
                   style={{ color: "#000000" }}
                 >
@@ -92,7 +93,7 @@ export const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  className="nav-item nav-link mr-3"
+                  className="nav-item nav-link"
                   to="/Galeria"
                   style={{ color: "#000000" }}
                 >
@@ -100,7 +101,7 @@ export const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  className="nav-item nav-link mr-3"
+                  className="nav-item nav-link"
                   to="/Preguntasfrecuentes"
                   style={{ color: "#000000" }}
                 >
@@ -108,15 +109,27 @@ export const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  className="nav-item nav-link mr-3"
+                  className="nav-item nav-link"
                   to="/Contactanos"
                   style={{ color: "#000000" }}
                 >
                   Contáctanos
                 </NavLink>
+
               </div>
             </div>
           </div>
+
+          {window.innerWidth > 992 ? (
+              <div className="nav-item">
+              <div className="ml-auto">
+                <a className="nav-link" href="#">
+                  <i className="far fa-shopping-bag fa-lg mx-3 justify-content-center iconBolsaPc"></i>
+                </a>
+              </div>
+            </div>
+            ) : null}
+
         </div>
       </nav>
     </>

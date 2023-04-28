@@ -7,6 +7,7 @@ import {
   Nosotros,
   PreguntasFrecuentes,
 } from "../cuadros/pages";
+import { Footer } from "../ui/components/Footer";
 
 export const AppRouter = () => {
   return (
@@ -21,6 +22,8 @@ export const AppRouter = () => {
         <Route path="Contactanos" element={<Contactanos />} />
         <Route path="/" element={<Navigate to="/inicio" />} />
       </Routes>
+      
+      <Footer/>
     </>
   );
 };

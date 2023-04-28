@@ -3,6 +3,14 @@
   padding: 0;
 }
 
+.container-fluid {
+  padding: 0 15px;
+}
+
+.container-fluid img {
+  max-width: 100%;
+}
+
 .inputSearch {
   min-height: 55px !important;
   min-width: 300px !important;
@@ -52,6 +60,17 @@ body {
   color: #6e7476;
   font-size: 17px;
   letter-spacing: 1px;
+}
+
+.nuestraColeccion {
+  text-decoration: none;
+  color: #000000;
+}
+
+.nuestraColeccion:hover {
+  text-decoration: none;
+  color: #7a7a7a;
+  transition: all 0.2s ease;
 }
 
 .alucinaTextFooter {

@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <>
       {window.innerWidth > 992 ? (
-        <div className="container mt-xl-4 mt-sm-0">
+        <div className="container-fluid mt-xl-4 mt-sm-0">
           <div className="row">
             <div className="col-md-4 d-flex justify-content-center"></div>
             <div className="col-md-4 d-flex justify-content-center">
@@ -14,7 +14,7 @@ export const Navbar = () => {
             <div className="col-md-4 d-flex justify-content-end">
               
               <form>
-                <div className="form-group form-field mt-0 mt-small-0">
+                <div className="form-group form-field mt-4 mt-small-0">
                   <input
                     type="text"
                     placeholder="Buscar en Productos"
@@ -31,7 +31,7 @@ export const Navbar = () => {
       ) : null}
 
       <nav className="navbar navbar-expand-lg navbar-transparent bg-transparen">
-        <div className="container containerMobile">
+        <div className="container-fluid containerMobile">
           <Link className="navbar-brand mx-auto" to="/">
             {window.innerWidth < 992 ? (
               <div className="text-center mt-0">

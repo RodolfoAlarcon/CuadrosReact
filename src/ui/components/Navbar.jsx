@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <>
       {window.innerWidth > 992 ? (
-        <div className="container mt-4">
+        <div className="container mt-xl-4 mt-sm-0">
           <div className="row">
             <div className="col-md-4 d-flex justify-content-center"></div>
             <div className="col-md-4 d-flex justify-content-center">
@@ -14,7 +14,7 @@ export const Navbar = () => {
             <div className="col-md-4 d-flex justify-content-end">
               
               <form>
-                <div className="form-group form-field mt-3">
+                <div className="form-group form-field mt-0 mt-small-0">
                   <input
                     type="text"
                     placeholder="Buscar en Productos"
@@ -30,19 +30,19 @@ export const Navbar = () => {
         </div>
       ) : null}
 
-      <nav className="navbar navbar-expand-lg navbar-transparent bg-transparen mb-5">
-        <div className="container">
+      <nav className="navbar navbar-expand-lg navbar-transparent bg-transparen">
+        <div className="container containerMobile">
           <Link className="navbar-brand mx-auto" to="/">
             {window.innerWidth < 992 ? (
-              <div className="text-center mt-4">
+              <div className="text-center mt-0">
                 <img src={logo} className="img-fluid logoMobile" alt="Logo" />
               </div>
             ) : null}
           </Link>
           <div className="d-flex align-items-center order-last">
             {window.innerWidth < 992 ? (
-              <div className="text-center mt-4">
-                <i className="fas fa-search search-icon"></i>
+              <div className="text-center">
+                <i className="fas fa-search search-icon lupitaMb"></i>
                 <i className="far fa-shopping-bag fa-lg shopping-bag-icon"></i>
               </div>
             ) : null}

@@ -15,15 +15,11 @@ body {
 .logo-page {
   max-width: calc(22vw);
   max-height: calc(12vh);
-  width: auto;
-  height: auto;
 }
 
 .logoMobile {
-  max-width: calc(30vw);
-  max-height: calc(20vh);
-  width: auto;
-  height: auto;
+  max-width: calc(25vw);
+  max-height: calc(8vh);
 }
 
 .nav {
@@ -97,23 +93,39 @@ body {
 .iconLupita {
   position: absolute;
   right: 0;
+  margin-right: 10px;
   margin-top: calc(-1vw - 1.5vh);
 }
 
-.search-icon {
+.lupitaMb {
   margin-right: 10px;
+  margin-bottom: -50px
 }
 
 .shopping-bag-icon {
   margin-left: 10px;
+  margin-bottom: -50px
 }
 
 .nav-item {
   color: "#000000" !important;
 }
 
+nav.navbar.navbar-expand-lg.navbar-transparent.bg-transparen{
+ padding: 0 !important;
+}
+
 .navbar-toggler {
-  margin-top: 40px;
+  margin-top: 0px;
+  border: none;
+  background-color: transparent;
+}
+
+.navbar-toggler-icon {
+  background-size: 18px 18px;
+  height: 18px;
+  width: 18px;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .heading-inicio {

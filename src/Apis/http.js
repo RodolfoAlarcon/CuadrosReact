@@ -76,6 +76,17 @@ export const FirebaseApi = {
             return docSnap.data().categoria
         }
 
+    },
+
+    consultaProductoFinal: async (data) => {
+
+        const docRef = doc(db, "Producto", `${data}`);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return docSnap.data()
+        }
+
     }
 
 }

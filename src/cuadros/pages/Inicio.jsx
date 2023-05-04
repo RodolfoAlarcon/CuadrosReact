@@ -1,6 +1,24 @@
+import React, { useState, useEffect } from "react";
+
 import logo from "../../assets/person_01.jpg";
 
+import { FirebaseApi } from "../../Apis/http";
+
+
+
 export const Inicio = () => {
+
+  useEffect(() => {
+
+    FirebaseApi.consultaGenero()
+      .then(ListaDeProductos => {
+        console.log(ListaDeProductos)
+      })
+      .catch(err => { console.log(err) })
+
+  }, [])
+  
+
   return (
     <>
       <div className="container-fluid mx-auto px-0 mt-xl-4 mt-sm-0">

@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import {CuadrosPicasso} from './CuadrosPicasso.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <BrowserRouter>
     <CuadrosPicasso />
     </BrowserRouter>
-  </React.StrictMode>,
+
 )

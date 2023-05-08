@@ -4,6 +4,8 @@ import { doc, collection, getDocs, getDoc } from "firebase/firestore";
 
 export const FirebaseApi = {
 
+
+    //Consultar solamente ista de producto//
     consultaProducto: async () => {
 
         const querySnapshot = await getDocs(collection(db, "Producto"));

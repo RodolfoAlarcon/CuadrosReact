@@ -21,7 +21,7 @@ export const Inicio = () => {
 
   return (
     <>
-      <div className="container-fluid mx-auto px-0 mt-xl-4 mt-sm-0">
+      <div className="container-fluid mx-auto mt-xl-4 mt-sm-0">
         <div className="row d-flex align-items-center justify-content-start">
           <div className="col-md-6">
             <img

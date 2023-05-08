@@ -31,7 +31,7 @@ export const Inicio = () => {
             />
           </div>
           <div className="col-md-6 ps-sm-5">
-            <p className="text-md-start text-center ps-sm-5 firstTittleHome fw-bolder mt-md-0 mt-4">
+            <p className="text-md-start text-center ps-sm-5  firstTittleHome fw-bolder mt-md-0 mt-4">
               Lo más nuevo
             </p>
             <p className="heading-inicio ps-sm-5 text-md-start text-center">

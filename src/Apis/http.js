@@ -5,7 +5,7 @@ import { doc, collection, getDocs, getDoc } from "firebase/firestore";
 export const FirebaseApi = {
 
 
-    //Consultar solamente ista de producto//
+    //Consultar solamente lista de producto//
     consultaProducto: async () => {
 
         const querySnapshot = await getDocs(collection(db, "Producto"));
@@ -80,6 +80,8 @@ export const FirebaseApi = {
 
     },
 
+
+    //producto unido nada mas data//
     consultaProductoFinal: async (data) => {
 
         const docRef = doc(db, "Producto", `${data}`);

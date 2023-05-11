@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import {Navbar} from '../ui'
 import {
   Contactanos,
+  CuadrosPage,
   Galeria,
   Inicio,
   Nosotros,
@@ -20,6 +21,7 @@ export const AppRouter = () => {
         <Route path="Galeria" element={<Galeria />} />
         <Route path="PreguntasFrecuentes" element={<PreguntasFrecuentes />} />
         <Route path="Contactanos" element={<Contactanos />} />
+        <Route path="cuadros/:id" element={<CuadrosPage />} />
         <Route path="/" element={<Navigate to="/inicio" />} />
       </Routes>
       

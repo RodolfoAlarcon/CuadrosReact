@@ -89,8 +89,10 @@ export const FirebaseApi = {
 
         if (docSnap.exists()) {
             return docSnap.data()
+            
         }
-
+        
     }
+    
 
 }

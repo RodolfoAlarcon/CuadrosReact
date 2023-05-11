@@ -20,8 +20,6 @@ export const CuadrosPage = () => {
     return <div>Cargando producto...</div>;
   }
 
-  console.log(productoFinal)
-
   return (
     <>
       <section className="page-title">

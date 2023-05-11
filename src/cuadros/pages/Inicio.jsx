@@ -24,7 +24,9 @@ export const Inicio = () => {
         console.log(err);
       });
   }, []);
+  
   console.log(productos);
+  
   return productos.length != 0 ? (
     <>
       <div className="container pt-0 ps-3 ps-lg-5">

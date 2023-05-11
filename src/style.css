@@ -397,6 +397,14 @@ iframe{
   box-shadow: none;
 }
 
+.ul{
+  list-style: none;
+}
+.subcategoria{
+  text-decoration: none;
+  color: #000000;
+}
+
 .form-control{
   box-shadow: none;
   height: 45px;

@@ -49,7 +49,7 @@ export const PreguntasFrecuentes = () => {
         </div>
       </div>
 
-      <div className="container pt-5 pt-lg-4">
+      <div className="container pt-5 pt-lg-4 mb-5">
         <div className="row justify-content-center">
           <div className="col-12 col-sm-10 col-lg-8">
             <div className="accordion accordion-flush" id="myAccordion">

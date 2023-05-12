@@ -3,7 +3,7 @@ import imgNosotros from "../../assets/imgNosotros.jpg";
 export const Nosotros = () => {
   return (
     <>
-      <div className="container pt-3 ps-2 pe-2 ps-md-5 pe-md-5">
+      <div className="container pt-3 ps-2 pe-2 ps-md-5 pe-md-5 mb-5">
         <div className="row pt-5">
           <div className="col-sm-12 col-md-6 ps-1 pe-1 ps-md-4 pe-md-3">
             <img

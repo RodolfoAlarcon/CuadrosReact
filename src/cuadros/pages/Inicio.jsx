@@ -24,9 +24,9 @@ export const Inicio = () => {
         console.log(err);
       });
   }, []);
-  
+
   console.log(productos);
-  
+
   return productos.length != 0 ? (
     <>
       <div className="container pt-0 ps-3 ps-lg-5">
@@ -45,7 +45,7 @@ export const Inicio = () => {
             </p>
 
             <p className="heading-inicio text-md-start text-center ps-0 ps-md-5">
-              Bienvenido {<br />}a
+              Bienvenido
             </p>
 
             <div className="col-md-9 text-start text-secondary textoNosotros fs-6 ps-0 ps-md-5 mt-0 mt-md-4 mb-3 mb-md-5">
@@ -65,7 +65,7 @@ export const Inicio = () => {
         </div>
       </div>
 
-      <div className="container-fluid mt-3 mt-md-5 mb-2 mb-md-4">
+      <div className="container mt-3 mt-md-5 mb-2 mb-md-4">
         <div className="row">
           <div className="text-center ">
             <h1 className="display-6 mt-3 mt-md-5 mb-2 mb-md-4">
@@ -73,50 +73,60 @@ export const Inicio = () => {
             </h1>
           </div>
         </div>
-      </div>
-
-
-
-      <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={50}
-      breakpoints={{
-        0: {
-          slidesPerView: 1,
-        },
-        450: {
-          slidesPerView: 2,
-        },
-        768: {
-          slidesPerView: 3,
-        },
-        1200: {
-          slidesPerView: 4,
-        },
-      }}
-      navigation
-    >
-      {productos.map((datas) => {
+        <div className="row">
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={50}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              450: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1200: {
+                slidesPerView: 4,
+              },
+            }}
+            navigation
+          >
+            {productos.map((datas) => {
               return (
                 <SwiperSlide key={datas.id}>
                   <div className="container" style={{ width: "90%", padding: "30px" }}>
-                    <img
-                      src={datas.data.galeria[0]}
-                      className="card-img-top"
-                      alt="..."
-                    />
+                    <div className="contenido">
+                      <img
+                        src={datas.data.galeria[0]}
+                        className="card-img-top"
+                        alt="..."
+                      />
+                      <div className="middle">
+                      <button className="btn btn-primary comprar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>Cotizar</button>
+                      </div>
+                    </div>
                     <h6 className="fs-6 text-secondary">Pintores: {datas.data.pintores}</h6>
                     <h4 className="fs-6">{datas.data.nombre}</h4>
                     <h4 className="fs-6">${datas.data.precio} - ${datas.data.precio}</h4>
-                    <Link to={`/cuadros/${datas.id}`}>Comprar</Link>
-                    
                   </div>
                 </SwiperSlide>
               );
             })}
-    </Swiper>
+          </Swiper>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <button className="btn btn-primary btn-ir-tienda d-block m-auto" onClick={() => navigation.navigate("Galeria")}>Ir a la Tienda</button>
+          </div>
+        </div>
+      </div>
 
-      
+
+
+
+
 
     </>
   ) : (

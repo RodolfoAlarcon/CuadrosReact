@@ -120,7 +120,7 @@ export const Galeria = () => {
         </div>
       </section>
 
-      <div className="container">
+      <div className="container mb-5">
         <div className="row">
           <div className="col-sm-12 col-md-3 mb-2">
             <div className="text-start mt-0 me-5 fs-2">Filtros</div>
@@ -316,21 +316,22 @@ export const Galeria = () => {
                     return (
                       <div key={datas.id} className="col-sm-12 col-md-3">
                         <div className="container containerCuadrosComprar">
-                          <img
-                            src={datas.data.galeria[0]}
-                            className="w-100 imageCuadrosComprar"
-                            alt="..."
-                          />
-
+                          <div className="contenido">
+                            <img
+                              src={datas.data.galeria[0]}
+                              className="w-100 imageCuadrosComprar"
+                              alt="..."
+                            />
+                            <div className="middle">
+                              <button className="btn btn-primary comprar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>Cotizar</button>
+                            </div>
+                          </div>
                           <h4 className="fs-6">{datas.data.nombre}</h4>
                           <h4 className="fs-6">
                             ${datas.data.precio}-{datas.data.precio}
                           </h4>
-                          <div className="middleCuadrosComprar">
-                              <Link to={`/cuadros/${datas.id}`} className="textCuadrosComprar">Comprar</Link>
-                          </div>
                         </div>
-                        
+
                       </div>
                     );
                   })

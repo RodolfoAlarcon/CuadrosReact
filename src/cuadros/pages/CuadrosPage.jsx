@@ -133,11 +133,11 @@ export const CuadrosPage = () => {
             <div className="row pt-5 ms-1">
               <div className="col-sm-3 col-md-3 cantidadesBoton">
               <button type="button" className="btn btn-transparent mt-1">
-                  -1
+                  -
                 </button>
                 <span className="btn mt-1">0</span>
               <button type="button" className="btn btn-transparent mt-1">
-                  +1
+                  +
                 </button>
               </div>
               <div className="col-sm-9 col-md-9">

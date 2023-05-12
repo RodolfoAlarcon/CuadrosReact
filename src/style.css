@@ -452,3 +452,108 @@ iframe{
 .textCuadrosComprar{
   margin-bottom: 100px !important;
 }
+
+.swiper-button-next, .swiper-button-prev{
+  border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after{
+  font-size: 20px;
+  color: #000000;
+}
+
+.btn-ir-tienda{
+  width: 160px;
+  height: 45px;
+  border-color: #000000;
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: none !important;
+}
+
+.btn-ir-tienda:focus{
+  width: 160px;
+  height: 45px;
+  border-color: #000000;
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: none !important;
+}
+
+.btn-ir-tienda:hover{
+  width: 160px;
+  height: 45px;
+  border-color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: none !important;
+}
+
+
+.contenido{
+  position: relative;
+  width: 100%;
+}
+
+.card-img-top{
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.contenido:hover .image {
+  opacity: 0.3;
+}
+
+.contenido:hover .middle {
+  opacity: 1;
+}
+
+
+
+
+.middle .comprar{
+  width: 160px;
+  height: 45px;
+  border-color: #000;
+  background-color: #000;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+.middle .comprar:focus{
+  width: 160px;
+  height: 45px;
+  border-color: #000;
+  background-color: #000;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+.middle .comprar:hover{
+  width: 160px;
+  height: 45px;
+  border-color: #000;
+  background-color: #000;
+  color: #fff;
+  box-shadow: none !important;
+}

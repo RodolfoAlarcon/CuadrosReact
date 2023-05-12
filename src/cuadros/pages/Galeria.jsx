@@ -8,11 +8,16 @@ export const Galeria = () => {
   const [estilosCuadros, setEstilosCuadros] = useState([]);
   const [temaCuadros, setTemasCuadros] = useState([]);
   const [productos, setProductos] = useState([]);
+  const [productosFinal, setProductosFinal] = useState([]);
+  const [loading, setLoading] = useState(false)
+  const [eliminar, seteliminar] = useState(false)
 
   useEffect(() => {
     FirebaseApi.consultaProducto()
       .then((listaDeProductos) => {
         setProductos(listaDeProductos);
+        setProductosFinal(listaDeProductos);
+        console.log(listaDeProductos)
       })
       .catch((err) => {
         console.log(err);
@@ -38,7 +43,89 @@ export const Galeria = () => {
     };
     consultarDatosFirebase();
   }, []);
-  
+
+
+  const handleFamoso = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.famosos === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+  const handleVendidos = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.vendido === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+
+  const handlePintores = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.pintores === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+  const handleGenero = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.genero === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+
+  const handleEstilo = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.estilos === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+  const handleTemas = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.tema === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+  const handleGeometria = (item) => {
+
+    seteliminar(true)
+
+    let filtro = productos.filter(e => e.data.geometria === item)
+
+    setProductosFinal(filtro)
+
+  }
+
+  const handleElimanrFiltro = () => {
+
+    setProductosFinal(productos)
+
+    seteliminar(false)
+
+  }
+
+
   return (
     <>
       <section className="page-title">
@@ -55,10 +142,20 @@ export const Galeria = () => {
 
       <div className="container">
         <div className="row">
-          <div className="col-sm-12 col-md-2">
+          <div className="col-sm-12 col-md-3 mb-5">
             <div className="text-start mt-0 me-5 fs-2">Filtros</div>
             <div className="tittle mt-3">
               CATEGORÍA
+              <div className="container mt-2">
+                <p className="user-select-none" onClick={() => handleFamoso("Si")}>
+                  LOS MÁS FAMOSOS
+                </p>
+              </div>
+              <div className="container">
+                <p className="user-select-none" onClick={() => handleVendidos("Si")}>
+                  LOS MÁS VENDIDOS
+                </p>
+              </div>
               <div className="container mt-2">Pintores Famosos</div>
               <ul className="ul">
                 <li>
@@ -67,7 +164,7 @@ export const Galeria = () => {
                       <a
                         key={pintor}
                         className="text ms-3 subcategoria"
-                        href={pintor}
+                        onClick={() => handlePintores(pintor)}
                       >
                         {pintor}
                         <br></br>
@@ -84,7 +181,7 @@ export const Galeria = () => {
                       <a
                         key={genero}
                         className="text ms-3 subcategoria"
-                        href={genero}
+                        onClick={() => handleGenero(genero)}
                       >
                         {genero}
                         <br></br>
@@ -101,7 +198,7 @@ export const Galeria = () => {
                       <a
                         key={estilos}
                         className="text ms-3 subcategoria"
-                        href={estilos}
+                        onClick={() => handleEstilo(estilos)}
                       >
                         {estilos}
                         <br></br>
@@ -118,7 +215,7 @@ export const Galeria = () => {
                       <a
                         key={temas}
                         className="text ms-3 subcategoria"
-                        href={temas}
+                        onClick={() => handleTemas(temas)}
                       >
                         {temas}
                         <br></br>
@@ -127,32 +224,64 @@ export const Galeria = () => {
                   })}
                 </li>
               </ul>
+              <span className="container mt-2">Forma</span>
+              <ul className="ul">
+                <li>
+                  <a onClick={() => handleGeometria("Cuadrado")} >Cuadrado</a>
+                  <br />
+                </li>
+                <li>
+                  <a onClick={() => handleGeometria("Horizontal")} >Horizontal</a>
+                  <br />
+                </li>
+                <li>
+                  <a onClick={() => handleGeometria("Vertical")} >Vertical</a>
+                  <br />
+                </li>
+              </ul>
+              {
+                eliminar == false ?
+                <></>
+                :
+                <div className="container">
+                <a onClick={() => handleElimanrFiltro()}>
+                  Elimar
+                </a>
+              </div>
+              }
             </div>
           </div>
 
-          <div className="col-sm-12 col-md-10">
+          <div className="col-sm-12 col-md-9">
             <div className="container">
               <div className="row">
-                {productos.map((datas) => {
-                  return (
-                    <div key={datas.id} className="col-sm-12 col-md-3">
-                      <div className="container">
-                        <img
-                          src={datas.data.galeria[0]}
-                          className="w-100"
-                          alt="..."
-                        />
-                        
-                          <h4 className="fs-6">{datas.data.nombre}</h4>
-                          <h4 className="fs-6">${datas.data.precio}-{datas.data.precio}</h4>
-                          <Link to={`/cuadros/${datas.id}`}>
-                            Comprar
+                {
+                  productosFinal.length == 0 ?
+                    <>
+                      aqui agregas el texto bien bonito de no hay productos
+                    </>
+                    :
+                    productosFinal.map((datas) => {
+                      return (
+                        <div key={datas.id} className="col-sm-12 col-md-3">
+                          <div className="container">
+                            <img
+                              src={datas.data.galeria[0]}
+                              className="w-100"
+                              alt="..."
+                            />
+
+                            <h4 className="fs-6">{datas.data.nombre}</h4>
+                            <h4 className="fs-6">${datas.data.precio}-{datas.data.precio}</h4>
+                            <Link to={`/cuadros/${datas.id}`}>
+                              Comprar
                             </Link>
+                          </div>
+
                         </div>
-          
-                    </div>
-                  );
-                })}
+                      );
+                    })
+                }
               </div>
             </div>
           </div>

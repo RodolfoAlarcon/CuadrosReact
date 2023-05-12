@@ -402,7 +402,8 @@ iframe{
 }
 .subcategoria{
   text-decoration: none;
-  color: #000000;
+  color: #6354f2;
+  cursor:pointer;
 }
 
 .form-control{
@@ -412,4 +413,42 @@ iframe{
 .form-control:focus{
   box-shadow: none;
   border-color: #000000;
+}
+
+.btnFilter, .subcategoria{
+  background-color: #ffffff;
+  border-bottom: 1px solid #c6c6c6 !important;
+  outline: none;
+  transition: color 0.3s ease;
+  --bs-btn-padding-x: 0 !important;
+  --bs-btn-padding-y: 2.3px !important;
+  --bs-btn-border-width: 0 !important;
+  --bs-btn-border-radius: 0 !important;
+}
+
+.btnFilter:hover{
+  color: #6354f2;
+}
+
+.deleteFilter{
+  text-decoration: none;
+  color: #686868;
+  border-bottom: 1px solid #686868 !important;
+  transition: color 0.3s ease;
+  cursor:pointer;
+}
+
+.deleteFilter:hover{
+  text-decoration: none;
+  color: #000000;
+  border-bottom: 1px solid #000000 !important;
+}
+
+.caritaTriste{
+  font-size: 100px;
+  color: #000000;
+}
+
+.textCuadrosComprar{
+  margin-bottom: 100px !important;
 }

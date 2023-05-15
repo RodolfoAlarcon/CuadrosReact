@@ -59,6 +59,12 @@ body {
 
 .nav-link-bolsa {
   border-bottom: 0px solid black !important;
+  margin-left: 0px !important;
+  transition: all 0.2s ease;
+}
+
+.nav-link-bolsa:hover {
+  color: red;
 }
 
 .tituloFooter {
@@ -606,6 +612,39 @@ iframe {
   color: #000 !important;
 }
 
-.text-cotizar{
+.text-cotizar {
   cursor: pointer;
+}
+
+.canvasCarrito {
+  padding: 0 !important;
+}
+
+.btn-volverTienda {
+  padding: 10px 30px 10px 30px !important;
+}
+
+.btn-volverTienda:hover {
+  background-color: #000000;
+  border-radius: 10px;
+  padding: 12px 32px 12px 32px !important;
+  transition: all 0.2s ease;
+}
+
+.containerPreciosCarrito {
+  background-color: #f7f7f7;
+  text-align: center !important;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.subtotal {
+  border-bottom: 1.5px solid #e9e9e9;
+}
+
+.facturacion {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f7f7f7;
 }

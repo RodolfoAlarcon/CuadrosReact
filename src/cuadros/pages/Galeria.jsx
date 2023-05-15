@@ -326,8 +326,8 @@ export const Galeria = () => {
                               <button className="btn btn-primary comprar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>Cotizar</button>
                             </div>
                           </div>
-                          <h4 className="fs-6">{datas.data.nombre}</h4>
-                          <h4 className="fs-6">
+                          <h4 className="fs-6 text-cotizar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>{datas.data.nombre}</h4>
+                          <h4 className="fs-6 text-cotizar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>
                             ${datas.data.precio}-{datas.data.precio}
                           </h4>
                         </div>

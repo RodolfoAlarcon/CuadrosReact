@@ -18,14 +18,14 @@ export const Inicio = () => {
 
     FirebaseApi.consultaProducto()
       .then((listaDeProductos) => {
-        setProductos(listaDeProductos);
+        let productofiltrado = listaDeProductos.filter((e) => e.data.famosos == "Si" )
+        setProductos(productofiltrado);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  console.log(productos);
 
   return productos.length != 0 ? (
     <>
@@ -69,7 +69,7 @@ export const Inicio = () => {
         <div className="row">
           <div className="text-center ">
             <h1 className="display-6 mt-3 mt-md-5 mb-2 mb-md-4">
-              La guía de estilo boutique
+              Lo mas Famoso
             </h1>
           </div>
         </div>

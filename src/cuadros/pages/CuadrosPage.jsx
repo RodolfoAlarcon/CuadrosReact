@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { FirebaseApi } from "../../Apis/http";
 import { useParams } from "react-router-dom";
-import { Navigation, Thumbs } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y, Thumbs } from 'swiper';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
@@ -12,16 +12,52 @@ export const CuadrosPage = () => {
   const { id } = useParams();
   const [productoFinal, setProductoFinal] = useState(null);
   const [activeThumb, setActiveThumb] = useState();
+  const [productos, setProductos] = useState([]);
+  const [cantidad, setCantidad] = useState(0)
 
   useEffect(() => {
     FirebaseApi.consultaProductoFinal(id)
       .then((producto) => {
         setProductoFinal(producto);
+        console.log(producto)
       })
       .catch((err) => {
         console.log(err);
       });
+
+
   }, [id]);
+
+
+  if (productoFinal != null) {
+    FirebaseApi.consultaProducto()
+      .then((listaDeProductos) => {
+        let productofiltrado = listaDeProductos.filter((e) => e.data.tema == productoFinal.tema)
+        setProductos(productofiltrado);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
+  const handleRestar = () => {
+
+    if(cantidad <= 0){
+      setCantidad(0)
+    }else{
+      setCantidad(cantidad - 1)
+    }
+
+  }
+
+
+  const handleSumar = () => {
+
+      setCantidad(cantidad + 1)
+
+  }
+
 
   if (!productoFinal) {
     return <div>Cargando producto...</div>;
@@ -40,10 +76,11 @@ export const CuadrosPage = () => {
         </div>
       </section>
 
-      <div className="container pt-0 ps-sm-1">
-        <div className="row">
+      <div className="container mb-5 pt-0 ps-sm-1">
+
+        <div className="row mb-3">
           <div className="col-sm-12 col-md-6 pt-sm-0 pt-md-4 ps-sm-0 ps-md-5">
-            
+
             <Swiper
               loop={true}
               spaceBetween={10}
@@ -55,7 +92,8 @@ export const CuadrosPage = () => {
                 height: '770px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'}}
+                justifyContent: 'center'
+              }}
             >
               <SwiperSlide key={"foto1"}>
                 <img src={productoFinal.galeria[0]} alt="" />
@@ -165,23 +203,27 @@ export const CuadrosPage = () => {
             <div className="pt-3 fs-6 mb-2">Cantidad:</div>
             <div className="row pt-1">
               <div className="col-sm-3 col-4">
-                <div className="input-group">
+                <div className="input-group input-group-css">
                   <button
                     className="btn btn-outline-secondary inputCount"
                     type="button"
+                    onClick={() => handleRestar()}
                   >
-                    -1
+                    -
                   </button>
                   <input
                     type="text"
                     className="form-control inputCount"
                     aria-label="Amount (to the nearest dollar)"
+                    value={cantidad}
+
                   />
                   <button
                     className="btn btn-outline-secondary inputCount"
                     type="button"
+                    onClick={() => handleSumar()}
                   >
-                    +1
+                    +
                   </button>
                 </div>
               </div>
@@ -234,6 +276,65 @@ export const CuadrosPage = () => {
             </div>
           </div>
         </div>
+
+
+        <div className="row">
+          <div className="text-center ">
+            <h1 className="display-6 mt-3 mt-md-5 mb-2 mb-md-4">
+            Productos relacionados
+            </h1>
+          </div>
+        </div>
+
+
+        {
+          productos.length == 0 ?
+            <></>
+            :
+            <div className="row">
+              <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                spaceBetween={50}
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1,
+                  },
+                  450: {
+                    slidesPerView: 2,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  1200: {
+                    slidesPerView: 4,
+                  },
+                }}
+                navigation
+              >
+                {productos.map((datas) => {
+                  return (
+                    <SwiperSlide key={datas.id}>
+                      <div className="container" style={{ width: "90%", padding: "30px" }}>
+                        <div className="contenido">
+                          <img
+                            src={datas.data.galeria[0]}
+                            className="card-img-top"
+                            alt="..."
+                          />
+                          <div className="middle">
+                            <button className="btn btn-primary comprar" onClick={() => navigation.navigate(`${datas.id}`)}>Cotizar</button>
+                          </div>
+                        </div>
+                        <h6 className="fs-6 text-secondary">Pintores: {datas.data.pintores}</h6>
+                        <h4 className="fs-6">{datas.data.nombre}</h4>
+                        <h4 className="fs-6">${datas.data.precio} - ${datas.data.precio}</h4>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
+        }
       </div>
     </>
   );

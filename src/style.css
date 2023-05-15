@@ -583,6 +583,8 @@ iframe {
   border: none !important;
   --bs-btn-color: black !important;
   --bs-btn-border-color: none !important;
+  width: 33.3%;
+  text-align: center;
 }
 
 .inputCount:hover {
@@ -602,4 +604,8 @@ iframe {
   background-color: #dbdbdb !important;
   border: none !important;
   color: #000 !important;
+}
+
+.text-cotizar{
+  cursor: pointer;
 }

@@ -9,12 +9,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyA0mPYebyENjOayGB1NPiPM-i6I3nFLDHo",
-    authDomain: "cuadrosreact.firebaseapp.com",
-    projectId: "cuadrosreact",
-    storageBucket: "cuadrosreact.appspot.com",
-    messagingSenderId: "565028271152",
-    appId: "1:565028271152:web:ee21e57670d83db34929f5"
+    apiKey: "AIzaSyDLDGl1JK6Y5pY9TuktxFEGvct63zD1Wbg",
+    authDomain: "cuadros-react.firebaseapp.com",
+    projectId: "cuadros-react",
+    storageBucket: "cuadros-react.appspot.com",
+    messagingSenderId: "1031702847912",
+    appId: "1:1031702847912:web:65e09523f590515a937d9d"
 };
 
 // Initialize Firebase

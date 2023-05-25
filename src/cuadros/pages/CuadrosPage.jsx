@@ -14,12 +14,15 @@ export const CuadrosPage = () => {
   const [activeThumb, setActiveThumb] = useState();
   const [productos, setProductos] = useState([]);
   const [cantidad, setCantidad] = useState(0)
+  const [tipoTela, setTipoTela] = useState("Elige una Opción")
+  const [medidaSelect, setmedidaSelect] = useState(null)
+  const [precioFinal, setPrecioFinal] = useState("")
 
   useEffect(() => {
     FirebaseApi.consultaProductoFinal(id)
       .then((producto) => {
         setProductoFinal(producto);
-        console.log(producto)
+        console.log("line 22 ->", producto)
       })
       .catch((err) => {
         console.log(err);
@@ -43,9 +46,9 @@ export const CuadrosPage = () => {
 
   const handleRestar = () => {
 
-    if(cantidad <= 0){
+    if (cantidad <= 0) {
       setCantidad(0)
-    }else{
+    } else {
       setCantidad(cantidad - 1)
     }
 
@@ -54,7 +57,7 @@ export const CuadrosPage = () => {
 
   const handleSumar = () => {
 
-      setCantidad(cantidad + 1)
+    setCantidad(cantidad + 1)
 
   }
 
@@ -63,7 +66,88 @@ export const CuadrosPage = () => {
     return <div>Cargando producto...</div>;
   }
 
+
+  const handleTela = (event) => {
+    event.preventDefault();
+    setTipoTela("Impresión en Tela")
+  }
+
+  const handleBastidor = (event) => {
+    event.preventDefault();
+    setTipoTela("Impresión en Tela aplicado en bastidor")
+  }
+
+  const handlePrecio = () => {
+
+    if (tipoTela == "Elige una Opción" || medidaSelect == null) {
+      return (
+        <>
+          {productoFinal.precio}
+        </>
+      )
+    } else if (tipoTela == "Elige una Opción") {
+      return (
+        <>
+          {productoFinal.precio}
+        </>
+      )
+    } else if (medidaSelect == null) {
+      return (
+        <>
+          {productoFinal.precio}
+        </>
+      )
+    }else{
+      if(tipoTela == "Impresión en Tela"){
+        return(
+          <>
+            {medidaSelect.medida.precio}$
+          </>
+        )
+      }else{
+        if(medidaSelect.id == 0){
+          return(
+            <>
+              {medidaSelect.medida.precio + 20}$
+            </>
+          )
+        }
+        if(medidaSelect.id == 1){
+          return(
+            <>
+              {medidaSelect.medida.precio + 30}$
+            </>
+          )
+        }
+        if(medidaSelect.id == 2){
+          return(
+            <>
+              {medidaSelect.medida.precio + 40}$
+            </>
+          )
+        }
+        if(medidaSelect.id == 3){
+          return(
+            <>
+              {medidaSelect.medida.precio + 50}$
+            </>
+          )
+        }
+        if(medidaSelect.id == 4){
+          return(
+            <>
+              {medidaSelect.medida.precio + 60}$
+            </>
+          )
+        }
+      }
+    }
+
+  }
+
+
   return (
+
     <>
       <section className="page-title">
         <div className="container">
@@ -129,7 +213,9 @@ export const CuadrosPage = () => {
               {productoFinal.nombre}
             </div>
             <div className="text-start pt-sm-0 pt-md-3 fs-3 ">
-              {productoFinal.precio}$-{productoFinal.precio}$
+              {
+                handlePrecio()
+              }
             </div>
             <div className="text-start pt-sm-0 pt-md-3 text-secondary fs-6">
               Autor: {productoFinal.pintores}
@@ -147,20 +233,20 @@ export const CuadrosPage = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Elige una Opción
+                  {tipoTela}
                 </a>
 
                 <ul
-                  className="dropdown-menu"
+                  className="dropdown-menu telaBastidor"
                   aria-labelledby="dropdownMenuLink"
                 >
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" onClick={handleTela}>
                       Impresión en Tela
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" onClick={handleBastidor}>
                       Impresión en Tela aplicado en bastidor
                     </a>
                   </li>
@@ -168,38 +254,20 @@ export const CuadrosPage = () => {
               </div>
             </div>
             <div className="pt-3 fs-6 mb-2">Medidas:</div>
-            <div className="d-flex flex-row">
-              <div className="col-md-3 pb-1 medidasBotonesDistancia">
-                <button type="button" className="btn text-dark btnMedidas">
-                  {productoFinal.medida}
-                </button>
-              </div>
+            <div className="d-flex flex-row flex-wrap medidas-caja">
 
-              <div className="col-md-3 pb-3 ps-2 medidasBotonesDistancia">
-                <button type="button" className="btn text-dark btnMedidas">
-                  {productoFinal.medida}
-                </button>
-              </div>
+              {
+                productoFinal.medida.map((e,index) => (
+                  <div key={index} className={medidaSelect == null || medidaSelect.medida.medida != e.medida ? 'me-2 mb-2 medidasBotonesDistancia' : "me-2 mb-2 medidasBotonesDistancia active"}>
+                    <button onClick={() => setmedidaSelect({medida:e, id:index})} type="button" className="btn text-dark btnMedidas w-100">
+                      {e.medida}
+                    </button>
+                  </div>
+                ))
+              }
 
-              <div className="col-md-3 pb-1 ps-2 medidasBotonesDistancia">
-                <button type="button" className="btn text-dark btnMedidas">
-                  {productoFinal.medida}
-                </button>
-              </div>
             </div>
-            <div className="d-flex flex-row">
-              <div className="col-md-3 pb-1 medidasBotonesDistancia">
-                <button type="button" className="btn text-dark btnMedidas">
-                  {productoFinal.medida}
-                </button>
-              </div>
 
-              <div className="col-md-3 ps-2 medidasBotonesDistancia">
-                <button type="button" className="btn fs-6 text-dark btnMedidas">
-                  {productoFinal.medida}
-                </button>
-              </div>
-            </div>
             <div className="pt-3 fs-6 mb-2">Cantidad:</div>
             <div className="row pt-1">
               <div className="col-sm-3 col-4">
@@ -281,7 +349,7 @@ export const CuadrosPage = () => {
         <div className="row">
           <div className="text-center ">
             <h1 className="display-6 mt-3 mt-md-5 mb-2 mb-md-4">
-            Productos relacionados
+              Productos relacionados
             </h1>
           </div>
         </div>
@@ -327,7 +395,7 @@ export const CuadrosPage = () => {
                         </div>
                         <h6 className="fs-6 text-secondary">Pintores: {datas.data.pintores}</h6>
                         <h4 className="fs-6">{datas.data.nombre}</h4>
-                        <h4 className="fs-6">${datas.data.precio} - ${datas.data.precio}</h4>
+                        <h4 className="fs-6">{datas.data.precio}</h4>
                       </div>
                     </SwiperSlide>
                   );

@@ -255,7 +255,7 @@ nav.navbar.navbar-expand-lg.navbar-transparent.bg-transparen {
     justify-content: center;
   }
   .medidasBotonesDistancia {
-    width: 19% !important;
+    width: 150px !important;
   }
 }
 
@@ -289,6 +289,13 @@ nav.navbar.navbar-expand-lg.navbar-transparent.bg-transparen {
   background-color: #e6e4e2;
   border: 1px solid #d22336 !important;
   color: #d22336 !important;
+}
+
+.medidas-caja .active {
+  background-color: #e6e4e2 !important;
+  border: 1px solid #d22336 !important;
+  color: #d22336 !important;
+  border-radius: 5px;
 }
 
 .cantidadesBoton {
@@ -647,4 +654,8 @@ iframe {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #f7f7f7;
+}
+
+.telaBastidor{
+  cursor: pointer;
 }

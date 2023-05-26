@@ -518,7 +518,7 @@ iframe {
 .contenido {
   position: relative;
   width: 100%;
-  height: calc(100vw * 350 / 1920);
+  height: 360px;
   display: flex;
   align-items: center;
 }

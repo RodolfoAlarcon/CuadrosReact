@@ -303,6 +303,9 @@ nav.navbar.navbar-expand-lg.navbar-transparent.bg-transparen {
 }
 
 @media (max-width: 991px) {
+  .contenido{
+    height: 500px !important;
+  }
   .nav {
     display: flex;
     justify-content: space-between;
@@ -515,6 +518,9 @@ iframe {
 .contenido {
   position: relative;
   width: 100%;
+  height: calc(100vw * 350 / 1920);
+  display: flex;
+  align-items: center;
 }
 
 .card-img-top {

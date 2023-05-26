@@ -382,7 +382,7 @@ export const CuadrosPage = () => {
                 {productos.map((datas) => {
                   return (
                     <SwiperSlide key={datas.id}>
-                      <div className="container" style={{ width: "90%", padding: "30px" }}>
+                      <div className="container" style={{ width: "90%", padding: "20px" }}>
                         <div className="contenido">
                           <img
                             src={datas.data.galeria[0]}

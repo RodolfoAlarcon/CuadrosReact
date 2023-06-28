@@ -7,6 +7,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import "./product-image-slider.css";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
+
+const MySwal = withReactContent(Swal)
+
+
 
 export const CuadrosPage = () => {
   const { id } = useParams();
@@ -17,6 +25,8 @@ export const CuadrosPage = () => {
   const [tipoTela, setTipoTela] = useState("Elige una Opción")
   const [medidaSelect, setmedidaSelect] = useState(null)
   const [precioFinal, setPrecioFinal] = useState("")
+  const [precioFin, setPrecioFin ] = useState(0)
+
 
   useEffect(() => {
     FirebaseApi.consultaProductoFinal(id)
@@ -28,8 +38,8 @@ export const CuadrosPage = () => {
         console.log(err);
       });
 
-
   }, [id]);
+
 
 
   if (productoFinal != null) {
@@ -70,21 +80,19 @@ export const CuadrosPage = () => {
   const handleTela = (event) => {
     event.preventDefault();
     setTipoTela("Impresión en Tela")
+    handlePrecio()
   }
 
   const handleBastidor = (event) => {
     event.preventDefault();
     setTipoTela("Impresión en Tela aplicado en bastidor")
+    handlePrecio()
   }
 
   const handlePrecio = () => {
 
     if (tipoTela == "Elige una Opción" || medidaSelect == null) {
-      return (
-        <>
-          {productoFinal.precio}
-        </>
-      )
+      setPrecioFin(productoFinal.precio)
     } else if (tipoTela == "Elige una Opción") {
       return (
         <>
@@ -92,54 +100,47 @@ export const CuadrosPage = () => {
         </>
       )
     } else if (medidaSelect == null) {
-      return (
-        <>
-          {productoFinal.precio}
-        </>
-      )
+      setPrecioFin(productoFinal.precio)
+    } else {
+      if (tipoTela == "Impresión en Tela") {
+        setPrecioFin(medidaSelect.medida.precio)
+      } else {
+        if (medidaSelect.id == 0) {
+          setPrecioFin(medidaSelect.medida.precio + 20)
+        }
+        if (medidaSelect.id == 1) {
+          setPrecioFin(medidaSelect.medida.precio + 30)
+
+        }
+        if (medidaSelect.id == 2) {
+          setPrecioFin(medidaSelect.medida.precio + 40)
+
+        }
+        if (medidaSelect.id == 3) {
+          setPrecioFin(medidaSelect.medida.precio + 50)
+
+        }
+        if (medidaSelect.id == 4) {
+          setPrecioFin(medidaSelect.medida.precio + 60)
+        }
+      }
+    }
+
+  }
+
+
+  const handleCarritoAdd = () => {
+
+    if (tipoTela == "Elige una Opción" || medidaSelect == null) {
+      MySwal.fire({
+        html: <i>Faltan campos por seleccionar</i>,
+        icon: 'error'
+      })
     }else{
       if(tipoTela == "Impresión en Tela"){
-        return(
-          <>
-            {medidaSelect.medida.precio}$
-          </>
-        )
+        console.log("tela")
       }else{
-        if(medidaSelect.id == 0){
-          return(
-            <>
-              {medidaSelect.medida.precio + 20}$
-            </>
-          )
-        }
-        if(medidaSelect.id == 1){
-          return(
-            <>
-              {medidaSelect.medida.precio + 30}$
-            </>
-          )
-        }
-        if(medidaSelect.id == 2){
-          return(
-            <>
-              {medidaSelect.medida.precio + 40}$
-            </>
-          )
-        }
-        if(medidaSelect.id == 3){
-          return(
-            <>
-              {medidaSelect.medida.precio + 50}$
-            </>
-          )
-        }
-        if(medidaSelect.id == 4){
-          return(
-            <>
-              {medidaSelect.medida.precio + 60}$
-            </>
-          )
-        }
+        console.log("precio con bastidor ->", precioFin)
       }
     }
 
@@ -214,7 +215,10 @@ export const CuadrosPage = () => {
             </div>
             <div className="text-start pt-sm-0 pt-md-3 fs-3 ">
               {
-                handlePrecio()
+                precioFin == 0 ?
+                productoFinal.precio
+                :
+                precioFin
               }
             </div>
             <div className="text-start pt-sm-0 pt-md-3 text-secondary fs-6">
@@ -257,9 +261,9 @@ export const CuadrosPage = () => {
             <div className="d-flex flex-row flex-wrap medidas-caja">
 
               {
-                productoFinal.medida.map((e,index) => (
+                productoFinal.medida.map((e, index) => (
                   <div key={index} className={medidaSelect == null || medidaSelect.medida.medida != e.medida ? 'me-2 mb-2 medidasBotonesDistancia' : "me-2 mb-2 medidasBotonesDistancia active"}>
-                    <button onClick={() => setmedidaSelect({medida:e, id:index})} type="button" className="btn text-dark btnMedidas w-100">
+                    <button onClick={() => setmedidaSelect({ medida: e, id: index })} type="button" className="btn text-dark btnMedidas w-100">
                       {e.medida}
                     </button>
                   </div>
@@ -299,6 +303,7 @@ export const CuadrosPage = () => {
                 <button
                   className="btn btn-transparent text-center p-0 btn-small w-100"
                   type="button"
+                  onClick={() => handleCarritoAdd()}
                 >
                   Añadir al carrito
                 </button>

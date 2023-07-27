@@ -1,22 +1,55 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import { FirebaseApi } from "../../Apis/http";
 import { useParams } from "react-router-dom";
+
+
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, Thumbs } from 'swiper';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import "./product-image-slider.css";
+import { FreeMode, Navigation, Thumbs, Pagination, Scrollbar, A11y } from "swiper";
+
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
+import { CarritoHook } from "../../Hook/CarritoHook";
+import { contextProvider } from "../../Context/ContextProvider";
 
 
 const MySwal = withReactContent(Swal)
 
+const initialState = []
 
+const init = () => {
+  return JSON.parse(localStorage.getItem('todos')) || []
+}
 
 export const CuadrosPage = () => {
+
+  const { setcarritoCountContex, carritoCountContex } = useContext(contextProvider)
+
+  const [todos, dispatch] = useReducer(CarritoHook, initialState, init)
+
+  useEffect(() => {
+
+    localStorage.setItem('todos', JSON.stringify(todos))
+    setcarritoCountContex(carritoCountContex + 1)
+
+  }, [todos])
+
+  const handleNewTodo = (data) => {
+
+    const action = {
+
+      type: 'Add Todo',
+      payload: data
+
+    }
+
+    dispatch(action)
+
+  }
+
   const { id } = useParams();
   const [productoFinal, setProductoFinal] = useState(null);
   const [activeThumb, setActiveThumb] = useState();
@@ -25,14 +58,16 @@ export const CuadrosPage = () => {
   const [tipoTela, setTipoTela] = useState("Elige una Opción")
   const [medidaSelect, setmedidaSelect] = useState(null)
   const [precioFinal, setPrecioFinal] = useState("")
-  const [precioFin, setPrecioFin ] = useState(0)
+  const [precioFin, setPrecioFin] = useState(0)
+  const [precioSumar, setprecioSumar] = useState(0)
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
 
   useEffect(() => {
     FirebaseApi.consultaProductoFinal(id)
       .then((producto) => {
         setProductoFinal(producto);
-        console.log("line 22 ->", producto)
+        setPrecioFin(producto.medida[0].precio)
       })
       .catch((err) => {
         console.log(err);
@@ -40,6 +75,71 @@ export const CuadrosPage = () => {
 
   }, [id]);
 
+
+  useEffect(() => {
+
+
+    if (cantidad != 0 && tipoTela != "Elige una Opción" && medidaSelect != null) {
+      if (tipoTela == "Impresión en Tela") {
+        if (cantidad == 1) {
+          setPrecioFin(medidaSelect.medida.precio)
+          setprecioSumar(medidaSelect.medida.precio)
+        } else {
+          setPrecioFin(medidaSelect.medida.precio * cantidad)
+          setprecioSumar(medidaSelect.medida.precio)
+        }
+      } else {
+        let precioTotal
+        if (cantidad == 1) {
+          if (medidaSelect.id == 0) {
+            precioTotal = medidaSelect.medida.precio + 20
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal)
+          } else if (medidaSelect.id == 1) {
+            precioTotal = medidaSelect.medida.precio + 30
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal)
+          } else if (medidaSelect.id == 2) {
+            precioTotal = medidaSelect.medida.precio + 40
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal)
+          } else if (medidaSelect.id == 3) {
+            precioTotal = medidaSelect.medida.precio + 50
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal)
+          } else {
+            precioTotal = medidaSelect.medida.precio + 60
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal)
+          }
+        } else {
+          if (medidaSelect.id == 0) {
+            precioTotal = medidaSelect.medida.precio + 20
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal * cantidad)
+          } else if (medidaSelect.id == 1) {
+            precioTotal = medidaSelect.medida.precio + 30
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal * cantidad)
+          } else if (medidaSelect.id == 2) {
+            precioTotal = medidaSelect.medida.precio + 40
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal * cantidad)
+          } else if (medidaSelect.id == 3) {
+            precioTotal = medidaSelect.medida.precio + 50
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal * cantidad)
+          } else {
+            precioTotal = medidaSelect.medida.precio + 60
+            setprecioSumar(precioTotal)
+            setPrecioFin(precioTotal * cantidad)
+          }
+        }
+      }
+    }
+
+
+  }, [cantidad, tipoTela, medidaSelect])
 
 
   if (productoFinal != null) {
@@ -54,97 +154,31 @@ export const CuadrosPage = () => {
   }
 
 
-  const handleRestar = () => {
-
-    if (cantidad <= 0) {
-      setCantidad(0)
-    } else {
-      setCantidad(cantidad - 1)
-    }
-
-  }
-
-
-  const handleSumar = () => {
-
-    setCantidad(cantidad + 1)
-
-  }
-
 
   if (!productoFinal) {
     return <div>Cargando producto...</div>;
   }
 
 
-  const handleTela = (event) => {
-    event.preventDefault();
-    setTipoTela("Impresión en Tela")
-    handlePrecio()
-  }
-
-  const handleBastidor = (event) => {
-    event.preventDefault();
-    setTipoTela("Impresión en Tela aplicado en bastidor")
-    handlePrecio()
-  }
-
-  const handlePrecio = () => {
-
-    if (tipoTela == "Elige una Opción" || medidaSelect == null) {
-      setPrecioFin(productoFinal.precio)
-    } else if (tipoTela == "Elige una Opción") {
-      return (
-        <>
-          {productoFinal.precio}
-        </>
-      )
-    } else if (medidaSelect == null) {
-      setPrecioFin(productoFinal.precio)
-    } else {
-      if (tipoTela == "Impresión en Tela") {
-        setPrecioFin(medidaSelect.medida.precio)
-      } else {
-        if (medidaSelect.id == 0) {
-          setPrecioFin(medidaSelect.medida.precio + 20)
-        }
-        if (medidaSelect.id == 1) {
-          setPrecioFin(medidaSelect.medida.precio + 30)
-
-        }
-        if (medidaSelect.id == 2) {
-          setPrecioFin(medidaSelect.medida.precio + 40)
-
-        }
-        if (medidaSelect.id == 3) {
-          setPrecioFin(medidaSelect.medida.precio + 50)
-
-        }
-        if (medidaSelect.id == 4) {
-          setPrecioFin(medidaSelect.medida.precio + 60)
-        }
-      }
-    }
-
-  }
-
 
   const handleCarritoAdd = () => {
 
-    if (tipoTela == "Elige una Opción" || medidaSelect == null) {
+    if (tipoTela == "Elige una Opción" || medidaSelect == null || cantidad <= 0) {
       MySwal.fire({
         html: <i>Faltan campos por seleccionar</i>,
         icon: 'error'
       })
-    }else{
-      if(tipoTela == "Impresión en Tela"){
-        console.log("tela")
-      }else{
-        console.log("precio con bastidor ->", precioFin)
-      }
+    } else {
+      let data = productoFinal
+      data.cantidad = cantidad
+      data.precioPagar = precioFin
+      data.medidaSelecionada = medidaSelect.medida.medida
+      data.telaEntrega = tipoTela
+      data.precioSumar = precioSumar
+      handleNewTodo(data)
     }
-
   }
+
 
 
   return (
@@ -166,7 +200,8 @@ export const CuadrosPage = () => {
         <div className="row mb-3">
           <div className="col-sm-12 col-md-6 pt-sm-0 pt-md-4 ps-sm-0 ps-md-5">
 
-            <Swiper
+            {/*
+                <Swiper
               loop={true}
               spaceBetween={10}
               modules={[Navigation, Thumbs]}
@@ -207,6 +242,46 @@ export const CuadrosPage = () => {
                 </div>
               </SwiperSlide>
             </Swiper>
+    */}
+
+            <>
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#fff",
+                  "--swiper-pagination-color": "#fff",
+                }}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="product-images-slider"
+              >
+                {
+                  productoFinal.galeria.map((e, index) => (
+                    <SwiperSlide key={index}>
+                    <img src={e} />
+                  </SwiperSlide>
+                  ))
+                }
+              </Swiper>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={15}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="product-images-slider-thumbs mt-1"
+              >
+                {
+                  productoFinal.galeria.map((e, index) => (
+                    <SwiperSlide key={index}>
+                    <img src={e} />
+                  </SwiperSlide>
+                  ))
+                }
+              </Swiper>
+            </>
 
           </div>
           <div className="col-sm-12 col-md-6 pt-sm-0 pt-md-4 ps-sm-0 ps-md-5">
@@ -214,12 +289,7 @@ export const CuadrosPage = () => {
               {productoFinal.nombre}
             </div>
             <div className="text-start pt-sm-0 pt-md-3 fs-3 ">
-              {
-                precioFin == 0 ?
-                productoFinal.precio
-                :
-                precioFin
-              }
+              ${precioFin}
             </div>
             <div className="text-start pt-sm-0 pt-md-3 text-secondary fs-6">
               Autor: {productoFinal.pintores}
@@ -245,12 +315,12 @@ export const CuadrosPage = () => {
                   aria-labelledby="dropdownMenuLink"
                 >
                   <li>
-                    <a className="dropdown-item" onClick={handleTela}>
+                    <a className="dropdown-item" onClick={() => setTipoTela("Impresión en Tela")}>
                       Impresión en Tela
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" onClick={handleBastidor}>
+                    <a className="dropdown-item" onClick={() => setTipoTela("Impresión en Tela aplicado en bastidor")}>
                       Impresión en Tela aplicado en bastidor
                     </a>
                   </li>
@@ -279,7 +349,7 @@ export const CuadrosPage = () => {
                   <button
                     className="btn btn-outline-secondary inputCount"
                     type="button"
-                    onClick={() => handleRestar()}
+                    onClick={() => cantidad <= 0 ? setCantidad(0) : setCantidad(cantidad - 1)}
                   >
                     -
                   </button>
@@ -293,7 +363,7 @@ export const CuadrosPage = () => {
                   <button
                     className="btn btn-outline-secondary inputCount"
                     type="button"
-                    onClick={() => handleSumar()}
+                    onClick={() => setCantidad(cantidad + 1)}
                   >
                     +
                   </button>

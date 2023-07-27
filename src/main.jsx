@@ -6,7 +6,7 @@ import {CuadrosPicasso} from './CuadrosPicasso.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
 
     <BrowserRouter>
-    <CuadrosPicasso />
+        <CuadrosPicasso />
     </BrowserRouter>
 
 )

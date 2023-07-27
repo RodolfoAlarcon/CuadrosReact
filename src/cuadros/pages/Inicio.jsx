@@ -18,7 +18,7 @@ export const Inicio = () => {
 
     FirebaseApi.consultaProducto()
       .then((listaDeProductos) => {
-        let productofiltrado = listaDeProductos.filter((e) => e.data.famosos == "Si" )
+        let productofiltrado = listaDeProductos.filter((e) => e.data.famosos == "Si")
         setProductos(productofiltrado);
       })
       .catch((err) => {
@@ -73,7 +73,7 @@ export const Inicio = () => {
             </h1>
           </div>
         </div>
-        <div className="row">
+        <div className="row swiper-row">
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={50}
@@ -96,21 +96,19 @@ export const Inicio = () => {
             {productos.map((datas) => {
               return (
                 <SwiperSlide key={datas.id}>
-                  <div className="container" style={{ width: "90%", padding: "30px" }}>
-                    <div className="contenido">
-                      <img
-                        src={datas.data.galeria[0]}
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <div className="middle">
+                  <div className="contenido" style={{}}>
+                    <img
+                      src={datas.data.galeria[0]}
+                      className="card-img-top"
+                      alt="..."
+                    />
+                    <div className="middle">
                       <button className="btn btn-primary comprar" onClick={() => navigation.navigate(`cuadros/${datas.id}`)}>Cotizar</button>
-                      </div>
                     </div>
-                    <h6 className="fs-6 text-secondary">Pintores: {datas.data.pintores}</h6>
-                    <h4 className="fs-6">{datas.data.nombre}</h4>
-                    <h4 className="fs-6">${datas.data.precio} - ${datas.data.precio}</h4>
                   </div>
+                  <h6 className="fs-6 text-secondary">Pintores: {datas.data.pintores}</h6>
+                  <h4 className="fs-6">{datas.data.nombre}</h4>
+                  <h4 className="fs-6">{datas.data.precio}</h4>
                 </SwiperSlide>
               );
             })}

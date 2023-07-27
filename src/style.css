@@ -517,17 +517,20 @@ iframe {
 
 .contenido {
   position: relative;
-  width: 100%;
+  width: 90%;
   height: 360px;
   display: flex;
   align-items: center;
+  margin: auto;
 }
 
 .card-img-top {
   opacity: 1;
   display: block;
   width: 100%;
-  height: auto;
+  height: 320px;
+  margin-bottom: 15px;
+  object-fit: fill;
   transition: 0.5s ease;
   backface-visibility: hidden;
 }
@@ -664,4 +667,21 @@ iframe {
 
 .telaBastidor{
   cursor: pointer;
+}
+
+
+.product-images-slider-thumbs .swiper-slide img{
+  width: 100%;
+}
+
+.product-images-slider-thumbs .swiper-slide{
+  max-height: 100px;
+}
+
+.product-images-slider .swiper-slide{
+  height: 600px;
+}
+
+.swiper-row .contenido{
+  height: 320px !important;
 }
